@@ -45,7 +45,7 @@ public class StockController {
         return stockService.getStockRates(dateMapper.getDate());
     }
 
-    @PostMapping("/rates/record/stocks/{stockTypeId}")
+    @PostMapping("/{stockTypeId}/rates/record")
     public StockRateHistoryUpcoming getStockRateHistoryAndUpcoming(@RequestBody DateMapper dateMapper, @PathVariable("stockTypeId") Long stockTypeId) {
 
         return stockService.getStockRateHistoryAndUpcoming(dateMapper, stockTypeId);
