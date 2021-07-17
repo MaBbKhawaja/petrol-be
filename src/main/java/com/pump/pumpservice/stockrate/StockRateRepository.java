@@ -21,4 +21,10 @@ public interface StockRateRepository extends JpaRepository<StockRate, Long> {
 
     @Query(value ="Select * from t_stock_rate as stockRate where stockRate.stock_type_id = :stockTypeId and stockRate.active_date <= :dateParam order by stockRate.active_date desc LIMIT 1", nativeQuery = true)
     public StockRate findStockByActiveDate(@Param("stockTypeId") Long stockTypeId, @Param("dateParam") Date date);
+
+    @Query(value ="Select * from t_stock_rate as stockRate where stockRate.stock_type_id = :stockTypeId and stockRate.active_date <= :currentDate order by stockRate.active_date desc", nativeQuery = true)
+    public List<StockRate> getStockRateHistory(@Param("stockTypeId") Long stockTypeId, @Param("currentDate") Date currentDate);
+
+    @Query(value ="Select * from t_stock_rate as stockRate where stockRate.stock_type_id = :stockTypeId and stockRate.active_date > :currentDate order by stockRate.active_date desc", nativeQuery = true)
+    public List<StockRate> getStockRateUpcoming(@Param("stockTypeId") Long stockTypeId, @Param("currentDate") Date currentDate);
 }

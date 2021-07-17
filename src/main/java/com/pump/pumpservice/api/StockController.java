@@ -1,6 +1,7 @@
 package com.pump.pumpservice.api;
 
 
+import com.pump.pumpservice.responses.StockRateHistoryUpcoming;
 import com.pump.pumpservice.stockrate.StockRate;
 import com.pump.pumpservice.stocktype.StockType;
 import com.pump.pumpservice.requestmappers.DateMapper;
@@ -44,4 +45,9 @@ public class StockController {
         return stockService.getStockRates(dateMapper.getDate());
     }
 
+    @PostMapping("/rates/record/stocks/{stockTypeId}")
+    public StockRateHistoryUpcoming getStockRateHistoryAndUpcoming(@RequestBody DateMapper dateMapper, @PathVariable("stockTypeId") Long stockTypeId) {
+
+        return stockService.getStockRateHistoryAndUpcoming(dateMapper, stockTypeId);
+    }
 }

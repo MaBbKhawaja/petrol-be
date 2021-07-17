@@ -1,5 +1,7 @@
 package com.pump.pumpservice.api;
 
+import com.pump.pumpservice.requestmappers.DateMapper;
+import com.pump.pumpservice.responses.StockRateHistoryUpcoming;
 import com.pump.pumpservice.stockrate.StockRate;
 import com.pump.pumpservice.stockrate.StockRateRepository;
 import com.pump.pumpservice.stocktype.StockType;
@@ -73,5 +75,19 @@ public class StockService {
            return null;
        }
 
+    }
+
+    public StockRateHistoryUpcoming getStockRateHistoryAndUpcoming(DateMapper dateMapper, Long stockTypeId) {
+        List<StockRate> stockRatesHistory = getSockRatesHistory(dateMapper.getDate(), stockTypeId);
+        List<StockRate> stockRatesUpcoming = getStockRateUpcoming(dateMapper.getDate(), stockTypeId);
+        return new StockRateHistoryUpcoming(stockRatesHistory, stockRatesUpcoming);
+    }
+
+    public List<StockRate> getSockRatesHistory(Date currentDate, Long stockTypeId) {
+        return stockRateRepository.getStockRateHistory(stockTypeId, currentDate);
+    }
+
+    public List<StockRate> getStockRateUpcoming(Date currentDate, Long stockTypeId) {
+        return stockRateRepository.getStockRateUpcoming(stockTypeId, currentDate);
     }
 }
